@@ -1,0 +1,33 @@
+{
+    "editor.formatOnSave": true,
+    "cSpell.words": [
+        "aeroplane",
+        "caffemodel",
+        "calib",
+        "cublas",
+        "cuda",
+        "cufft",
+        "declspec",
+        "dllexport",
+        "dont",
+        "dtags",
+        "eigen",
+        "endforeach",
+        "flann",
+        "freetype",
+        "imgcodecs",
+        "imgproc",
+        "momental",
+        "MSVC",
+        "openexr",
+        "Optix",
+        "prototxt",
+        "quirc",
+        "runpath",
+        "STREQUAL",
+        "webp"
+    ],
+    "indentRainbow.ignoreErrorLanguages": [
+        "cpp"
+    ]
+}

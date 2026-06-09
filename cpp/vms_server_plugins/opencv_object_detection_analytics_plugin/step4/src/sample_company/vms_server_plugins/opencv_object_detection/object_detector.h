@@ -1,4 +1,5 @@
-// Copyright 2018-present Network Optix, Inc. Licensed under MPL 2.0: www.mozilla.org/MPL/2.0/
+// Copyright 2018-present Network Optix, Inc. Licensed under MPL 2.0:
+// www.mozilla.org/MPL/2.0/
 
 #pragma once
 
@@ -22,22 +23,22 @@ namespace opencv_object_detection {
 class ObjectDetector
 {
 public:
-    explicit ObjectDetector(std::filesystem::path modelPath);
+  explicit ObjectDetector(std::filesystem::path modelPath);
 
-    void ensureInitialized();
-    bool isTerminated() const;
-    void terminate();
-    DetectionList run(const Frame& frame);
-
-private:
-    void loadModel();
-    DetectionList runImpl(const Frame& frame);
+  void ensureInitialized();
+  bool isTerminated() const;
+  void terminate();
+  DetectionList run(const Frame & frame);
 
 private:
-    bool m_netLoaded = false;
-    bool m_terminated = false;
-    const std::filesystem::path m_modelPath;
-    std::unique_ptr<cv::dnn::Net> m_net;
+  void loadModel();
+  DetectionList runImpl(const Frame & frame);
+
+private:
+  bool m_netLoaded = false;
+  bool m_terminated = false;
+  const std::filesystem::path m_modelPath;
+  std::unique_ptr<cv::dnn::Net> m_net;
 };
 
 } // namespace opencv_object_detection

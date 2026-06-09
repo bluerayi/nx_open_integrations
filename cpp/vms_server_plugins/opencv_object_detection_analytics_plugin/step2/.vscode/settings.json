@@ -1,0 +1,17 @@
+{
+    "editor.formatOnSave": true,
+    "cSpell.words": [
+        "declspec",
+        "dllexport",
+        "dont",
+        "dtags",
+        "momental",
+        "MSVC",
+        "Optix",
+        "runpath",
+        "STREQUAL"
+    ],
+    "indentRainbow.ignoreErrorLanguages": [
+        "cpp"
+    ]
+}

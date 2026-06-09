@@ -1,4 +1,5 @@
-// Copyright 2018-present Network Optix, Inc. Licensed under MPL 2.0: www.mozilla.org/MPL/2.0/
+// Copyright 2018-present Network Optix, Inc. Licensed under MPL 2.0:
+// www.mozilla.org/MPL/2.0/
 
 #pragma once
 
@@ -18,25 +19,21 @@ namespace sample_company {
 namespace vms_server_plugins {
 namespace opencv_object_detection {
 
-using namespace std::chrono_literals;
-
 class ObjectTracker
 {
 public:
-    ObjectTracker();
+  ObjectTracker();
 
-    DetectionList run(const Frame& frame, const DetectionList& detections);
-
-private:
-    DetectionList runImpl(
-        const Frame& frame,
-        const DetectionList& detections);
-
-    void cleanupIds();
+  DetectionList run(const Frame & frame, const DetectionList & detections);
 
 private:
-    const cv::Ptr<cv::detail::tracking::tbm::ITrackerByMatching> m_tracker;
-    const std::unique_ptr<IdMapper> m_idMapper = std::make_unique<IdMapper>();
+  DetectionList runImpl(const Frame & frame, const DetectionList & detections);
+
+  void cleanupIds();
+
+private:
+  const cv::Ptr<cv::detail::tracking::tbm::ITrackerByMatching> m_tracker;
+  const std::unique_ptr<IdMapper> m_idMapper = std::make_unique<IdMapper>();
 };
 
 } // namespace opencv_object_detection

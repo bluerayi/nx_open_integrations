@@ -1,10 +1,13 @@
 ## Copyright 2018-present Network Optix, Inc. Licensed under MPL 2.0: www.mozilla.org/MPL/2.0/
 
 cmake_minimum_required(VERSION 3.15)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded")
 project(opencv_object_detection_analytics_plugin)
 
-set(metadataSdkVersion "5.1.1.37512")
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+
+set(metadataSdkVersion "6.1.2.42921")
 set(metadataSdkDir "" CACHE PATH
     "Path to unpacked VMS Metadata SDK zip. Tested with version ${metadataSdkVersion}.")
 
@@ -21,8 +24,8 @@ list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
 
 # Download OpenCV automatically using Conan
 if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-   message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-   file(DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/master/conan.cmake"
+   message(STATUS "Downloading conan.cmake from https://github.com/bluerayi/cmake-conan")
+   file(DOWNLOAD "https://raw.githubusercontent.com/bluerayi/cmake-conan/master/conan.cmake"
        "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 include(${CMAKE_BINARY_DIR}/conan.cmake)

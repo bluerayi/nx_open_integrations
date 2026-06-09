@@ -1,11 +1,12 @@
-// Copyright 2018-present Network Optix, Inc. Licensed under MPL 2.0: www.mozilla.org/MPL/2.0/
+// Copyright 2018-present Network Optix, Inc. Licensed under MPL 2.0:
+// www.mozilla.org/MPL/2.0/
 
 #pragma once
 
 #include <filesystem>
 
-#include <nx/sdk/analytics/helpers/object_metadata_packet.h>
 #include <nx/sdk/analytics/helpers/consuming_device_agent.h>
+#include <nx/sdk/analytics/helpers/object_metadata_packet.h>
 #include <nx/sdk/helpers/uuid_helper.h>
 #include <nx/sdk/ptr.h>
 
@@ -16,60 +17,70 @@ namespace sample_company {
 namespace vms_server_plugins {
 namespace opencv_object_detection {
 
-class DeviceAgent: public nx::sdk::analytics::ConsumingDeviceAgent
+class DeviceAgent : public nx::sdk::analytics::ConsumingDeviceAgent
 {
 public:
-    using MetadataPacketList = std::vector<nx::sdk::Ptr<nx::sdk::analytics::IMetadataPacket>>;
+  using MetadataPacketList =
+    std::vector<nx::sdk::Ptr<nx::sdk::analytics::IMetadataPacket>>;
 
 public:
-    DeviceAgent(
-        const nx::sdk::IDeviceInfo* deviceInfo,
-        std::filesystem::path pluginHomeDir);
+  DeviceAgent(
+    const nx::sdk::IDeviceInfo * deviceInfo,
+    std::filesystem::path pluginHomeDir
+  );
 
-    virtual ~DeviceAgent() override;
+  virtual ~DeviceAgent() override;
 
 protected:
-    virtual std::string manifestString() const override;
+  virtual std::string manifestString() const override;
 
-    virtual bool pushUncompressedVideoFrame(
-        const nx::sdk::analytics::IUncompressedVideoFrame* videoFrame) override;
+  virtual bool pushUncompressedVideoFrame(
+    nx::sdk::Ptr<const nx::sdk::analytics::IUncompressedVideoFrame> videoFrame
+  ) override;
 
-    virtual void doSetNeededMetadataTypes(
-        nx::sdk::Result<void>* outValue,
-        const nx::sdk::analytics::IMetadataTypes* neededMetadataTypes) override;
-
-private:
-    nx::sdk::Ptr<nx::sdk::analytics::IMetadataPacket> generateEventMetadataPacket();
-
-    nx::sdk::Ptr<nx::sdk::analytics::ObjectMetadataPacket> detectionsToObjectMetadataPacket(
-        const DetectionList& detections,
-        int64_t timestampUs);
-
-    MetadataPacketList processFrame(
-        const nx::sdk::analytics::IUncompressedVideoFrame* videoFrame);
+  virtual void doSetNeededMetadataTypes(
+    nx::sdk::Result<void> * outValue,
+    const nx::sdk::analytics::IMetadataTypes * neededMetadataTypes
+  ) override;
 
 private:
-    const std::string kPersonObjectType = "nx.base.Person";
-    const std::string kCatObjectType = "nx.base.Cat";
-    const std::string kDogObjectType = "nx.base.Dog";
-    const std::string kNewTrackEventType = "nx.sample.newTrack";
+  nx::sdk::Ptr<nx::sdk::analytics::IMetadataPacket>
+  generateEventMetadataPacket();
 
-    /** Length of the the track (in frames). The value was chosen arbitrarily. */
-    static constexpr int kTrackFrameCount = 256;
+  nx::sdk::Ptr<nx::sdk::analytics::ObjectMetadataPacket>
+  detectionsToObjectMetadataPacket(
+    const DetectionList & detections,
+    int64_t timestampUs
+  );
 
-    /** Should work on modern PCs. */
-    static constexpr int kDetectionFramePeriod = 2;
+  MetadataPacketList processFrame(
+    nx::sdk::Ptr<const nx::sdk::analytics::IUncompressedVideoFrame> videoFrame
+  );
 
 private:
-    bool m_terminated = false;
-    bool m_terminatedPrevious = false;
-    const std::unique_ptr<ObjectDetector> m_objectDetector;
-    nx::sdk::Uuid m_trackId = nx::sdk::UuidHelper::randomUuid();
-    int m_frameIndex = 0; /**< Used for generating the detection in the right place. */
-    int m_trackIndex = 0; /**< Used in the description of the events. */
+  const std::string kPersonObjectType = "nx.base.Person";
+  const std::string kCatObjectType = "nx.base.Cat";
+  const std::string kDogObjectType = "nx.base.Dog";
+  const std::string kNewTrackEventType = "nx.sample.newTrack";
 
-    // Used for checking whether the frame size changed, and for reinitializing the tracker.
-    int64_t m_lastVideoFrameTimestampUs = 0;
+  /** Length of the the track (in frames). The value was chosen arbitrarily. */
+  static constexpr int kTrackFrameCount = 256;
+
+  /** Should work on modern PCs. */
+  static constexpr int kDetectionFramePeriod = 2;
+
+private:
+  bool m_terminated = false;
+  bool m_terminatedPrevious = false;
+  const std::unique_ptr<ObjectDetector> m_objectDetector;
+  nx::sdk::Uuid m_trackId = nx::sdk::UuidHelper::randomUuid();
+  int m_frameIndex =
+    0; /**< Used for generating the detection in the right place. */
+  int m_trackIndex = 0; /**< Used in the description of the events. */
+
+  // Used for checking whether the frame size changed, and for reinitializing
+  // the tracker.
+  int64_t m_lastVideoFrameTimestampUs = 0;
 };
 
 } // namespace opencv_object_detection

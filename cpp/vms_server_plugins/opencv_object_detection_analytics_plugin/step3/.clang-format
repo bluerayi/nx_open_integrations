@@ -1,0 +1,17 @@
+BasedOnStyle: Mozilla
+AlignArrayOfStructures: None
+AlignAfterOpenBracket: BlockIndent
+AlignConsecutiveAssignments: None
+AlignConsecutiveBitFields: None
+AlignConsecutiveDeclarations: None
+AlignConsecutiveMacros: None
+AlignEscapedNewlines: DontAlign
+AlignOperands: DontAlign
+AlignTrailingComments: false
+BinPackArguments: false
+BinPackParameters: false
+ContinuationIndentWidth: 2
+Cpp11BracedListStyle: true
+FixNamespaceComments: true
+PointerAlignment: Middle
+SpaceBeforeCpp11BracedList: true
